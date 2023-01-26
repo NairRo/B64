@@ -10,4 +10,8 @@ public interface EmployeeDao {
 	
 	public List<Employee> fetch();
 	
+	public void delete(Employee e);
+	
+	public void update(Employee e);
+	
 }

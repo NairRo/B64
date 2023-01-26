@@ -9,4 +9,8 @@ public interface EmployeeService {
 	public void save(Employee e);
 	
 	public List<Employee> fetch();
+	
+	public void delete(Employee e);
+	
+	public void update(Employee e);
 }

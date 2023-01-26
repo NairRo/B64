@@ -13,15 +13,15 @@ import com.demo.service.EmployeeService;
 import com.demo.service.EmployeeServiceImp1;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class DeleteServlet
  */
-public class RegisterServlet extends HttpServlet {
+public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterServlet() {
+    public DeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,16 +40,10 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Integer id = Integer.parseInt(request.getParameter("id"));
-		String name = request.getParameter("ename");
-		String dept = request.getParameter("edept");
-		Float salary = Float.parseFloat(request.getParameter("esalary"));
 		Employee e = new Employee();
 		e.setId(id);
-		e.setName(name);
-		e.setDept(dept);
-		e.setSalary(salary);
 		EmployeeService eservice = new EmployeeServiceImp1();
-		eservice.save(e);
+		eservice.delete(e);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("FetchServlet");
 		rd.forward(request, response);

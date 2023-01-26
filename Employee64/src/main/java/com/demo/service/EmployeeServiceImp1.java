@@ -19,7 +19,17 @@ public class EmployeeServiceImp1 implements EmployeeService{
 	public List<Employee> fetch() {
 		return employeeDao.fetch();
 	}
-	
-	
+
+	@Override
+	public void delete(Employee e) {
+		// TODO Auto-generated method stub
+		employeeDao.delete(e);
+	}
+
+	@Override
+	public void update(Employee e) {
+		// TODO Auto-generated method stub
+		employeeDao.update(e);
+	}
 
 }

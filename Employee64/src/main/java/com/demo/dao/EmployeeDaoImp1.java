@@ -58,6 +58,50 @@ public class EmployeeDaoImp1 implements EmployeeDao{
 		}
 		return emp;
 	}
+
+	@Override
+	public void update(Employee e) {
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement statement = conn.prepareStatement("update employeeb64 set name=?, dept=?, salary=? where id=?");
+			statement.setString(1, e.getName());
+			statement.setString(2, e.getDept());
+			statement.setFloat(3, e.getSalary());
+			statement.setInt(4, e.getId());
+			 
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated != 0) {
+			    System.out.println("An existing user was updated successfully!");
+			}
+			else {
+				System.out.println("Couldnt update the data");
+			}
+		}
+		catch(Exception e1) {
+			System.out.println(e1.getMessage());
+		}
+		
+	}
+
+	@Override
+	public void delete(Employee e) {
+		Connection conn = DBConnection.getConnection();
+		try {
+			PreparedStatement statement = conn.prepareStatement("delete from employeeb64 where id=?");
+			statement.setInt(1, e.getId());
+			 
+			int rowsDeleted = statement.executeUpdate();
+			if (rowsDeleted != 0) {
+			    System.out.println("A user was deleted successfully!");
+			}
+			else {
+				System.out.println("Couldnt delete the data");
+			}
+		}
+		catch(Exception e1) {
+			System.out.println(e1.getMessage());
+		}
+	}
 	
 	
 	

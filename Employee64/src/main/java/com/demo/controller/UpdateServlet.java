@@ -13,15 +13,15 @@ import com.demo.service.EmployeeService;
 import com.demo.service.EmployeeServiceImp1;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class UpdateServlet
  */
-public class RegisterServlet extends HttpServlet {
+public class UpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterServlet() {
+    public UpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 		e.setDept(dept);
 		e.setSalary(salary);
 		EmployeeService eservice = new EmployeeServiceImp1();
-		eservice.save(e);
+		eservice.update(e);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("FetchServlet");
 		rd.forward(request, response);

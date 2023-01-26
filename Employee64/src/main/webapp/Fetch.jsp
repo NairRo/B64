@@ -34,5 +34,15 @@
 			}
 		%>
 	</table>
+	
+	<form action="Delete.jsp" method="post">
+		<input type="submit" value="Delete"  />
+	</form>
+	<form action="Update.jsp" method="post">
+		<input type="submit" value="Update"  />
+	</form>
+	<form action="Register.jsp" method="post">
+		<input type="submit" value="Register"  />
+	</form>
 </body>
 </html>
