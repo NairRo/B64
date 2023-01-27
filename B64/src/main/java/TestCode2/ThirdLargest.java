@@ -1,4 +1,4 @@
-package TestCode1;
+package TestCode2;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class SecondMinMax {
+public class ThirdLargest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -27,8 +27,7 @@ public class SecondMinMax {
         System.out.println(numbers);
         numbers.sort(Comparator.naturalOrder());         
         
-        System.out.println("The second min number is " + numbers.get(1));
-        System.out.println("The second max number is " + numbers.get(numbers.size()-2));
+        System.out.println("The third max number is " + numbers.get(numbers.size()-3));
 	}
 
 }
