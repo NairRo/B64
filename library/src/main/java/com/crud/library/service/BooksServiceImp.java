@@ -1,11 +1,12 @@
 package com.crud.library.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crud.library.DTO.BookRequest;
+import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.model.Books;
 import com.crud.library.repositary.BooksRepositary;
 
@@ -17,23 +18,33 @@ public class BooksServiceImp implements BooksService{
 	BooksRepositary brepository;
 
 	@Override
-	public Books insert(Books b) {
-		return brepository.save(b);
+	public Books insert(BookRequest b) {
+		Books b1 = Books.build(b.getId(), b.getAuthor(), b.getTitle(), b.getCost());
+		return brepository.save(b1);
 	}
 
 	@Override
-	public List<Books> show() {
-		return brepository.findAll();
+	public List<Books> show() throws BookNotFoundException {
+		List<Books> l = brepository.findAll();
+		if(l.isEmpty()) {
+			throw new BookNotFoundException("There are no books");
+		}
+		else {
+			return l;
+		}
+		
 	}
 
 	@Override
-	public void delete(int id) {
+	public String delete(int id) throws BookNotFoundException {
+		showById(id);
 		brepository.deleteById(id);
+		return "The book has been deleted";
 	}
 
 	@Override
-	public Books update(Books b) {
-		Books b1 = showById(b.getId()).orElse(null);
+	public Books update(BookRequest b) throws BookNotFoundException {
+		Books b1 = showById(b.getId());
 		b1.setAuthor(b.getAuthor());
 		b1.setCost(b.getCost());
 		b1.setTitle(b.getTitle());
@@ -41,7 +52,13 @@ public class BooksServiceImp implements BooksService{
 	}
 
 	@Override
-	public Optional<Books> showById(int id) {
-		return brepository.findById(id);
+	public Books showById(int id) throws BookNotFoundException {
+		Books b = brepository.findById(id).orElse(null);
+		if (b == null) {
+			 throw new BookNotFoundException("The book does not exist " + id);
+		 }
+		 else {
+			 return b;
+		 }
 	}
 }

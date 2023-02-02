@@ -1,9 +1,10 @@
 package com.crud.library.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.crud.library.DTO.BookRequest;
+import com.crud.library.exception.BookNotFoundException;
 import com.crud.library.model.Books;
 import com.crud.library.service.BooksService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class BooksController {
@@ -22,25 +27,29 @@ public class BooksController {
 	BooksService bservice;
 	
 	@PostMapping("/create")
-	public String insert(@RequestBody Books b) {
-		bservice.insert(b);
-		return "Add the new book";
+	public ResponseEntity<Books> insert(@RequestBody @Valid BookRequest b) {
+		return new ResponseEntity<>(bservice.insert(b), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/fetch")
-	public List<Books> fetchAll(){
-		return bservice.show();
+	public ResponseEntity<List<Books>> fetchAll() throws BookNotFoundException{
+		return new ResponseEntity<>(bservice.show(), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/fetch/{id}")
+	public ResponseEntity<Books> fetchById(@PathVariable Integer id) throws BookNotFoundException{
+		return new ResponseEntity<>(bservice.showById(id), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public String update(@RequestBody Books b) {
-		bservice.update(b);
-		return "The book has been updated";
+	public ResponseEntity<Books> update(@RequestBody @Valid BookRequest b) throws BookNotFoundException {
+		return new ResponseEntity<>(bservice.update(b), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public String delete(@PathVariable Integer id) {
-		bservice.delete(id);
-		return "The book has been sold out";
+	public ResponseEntity<String> delete(@PathVariable Integer id) throws BookNotFoundException {
+		return new ResponseEntity<>(bservice.delete(id), HttpStatus.CREATED);
 	}
+	
+	
 }
